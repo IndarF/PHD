@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Usage: ./run_comp Nsite tpts dt ra rd Nstrip Nsim
+# Usage: ./run_comp.sh Nsite tpts dt ra rd Nstrip Nsim
 
 #   Nsite: # of sites per lattice strip
 #    tpts: Total time points for simulation
@@ -10,23 +10,19 @@
 #  Nstrip: # of lattice strips
 #    Nsim: # of simulations
 
-Nsite=5
+Nsite=10
 tpts=3000
 dt=0.1
 ra=1
 rd=50
 Nstrip=100
-Nsim=10
-
-# rates are halfed to account for double counting in simulation
-ra2=$( bc <<<"scale=2; $ra / 2" )
-rd2=$( bc <<<"scale=2; $rd / 2" )
-# bc used so code can contain the calculation as a float value
-# To change # of digits after decimal, change scale value (ex. scale=2 will give you 2 digits after decimal)  
+Nsim=10      
 
 resdir=../res$Nsite
 statscript=comp_stat.py
 rk4script=comp_rk4.py
+statfile=../stat_file
+rk4file=../rk4_file
 
 # Check resdir 
 if [ ! -d $resdir ]
@@ -36,22 +32,17 @@ then
 fi
 
 # run comp_stat.py
-python $statscript $Nsite $Nstrip $Nsim stat_file
+echo Comp_Stat_RK4 run 
+python $statscript $Nsite $Nstrip $Nsim $statfile
 
 # Check if Nsite is compatible with rk4 range
-if [ $Nsite -gt 1 -a $Nsite -lt 9]
+if [ $Nsite -gt 1 ] 
 then
-  echo "This is within range of supported rk4 computations"
-  exit
+  if [ $Nsite -lt 9 ]
+  then
+    echo "This is within range of supported rk4 computations"
+    python $rk4script $tpts $dt $Nsite $ra $rd $rk4file
+    exit
+  fi
 fi
-
-
-
-
-
-
-
-
-
-
 

@@ -16,7 +16,6 @@ nsites = xhi*yhi
 file_name = 'data.strips'
 site_file = open(file_name,"w")
 
-
 site_file.write("Site file written by create_site_file.py\n\n")
 # site_file.write("{} dimension\n".format(2))
 site_file.write("{} sites\n".format(nsites))
@@ -47,4 +46,4 @@ for i in range(1,nsites+1):
 
 site_file.close()
 
-print("%s generated" % file_name)
+print("%s generated for xhi=%d and yhi=%d" % (file_name,xhi,yhi))

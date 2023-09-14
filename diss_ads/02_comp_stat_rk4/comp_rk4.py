@@ -51,7 +51,7 @@ def Nsite2():
         surf_cov[i] = float(x2_rk[0,i]*0) + float(x2_rk[1,i])
     
     file_name = outfile + '{}'.format(Nsite)
-    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%.3f', '%.10f'], delimiter='      ', header='Time   Surface Coverage')
+    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%e', '%e'], delimiter='      ', header='Time   Surface Coverage')
     return "rk4_file generated"
     
 def Nsite3():
@@ -81,7 +81,7 @@ def Nsite3():
         surf_cov[i] = float(x3_rk[0,i]*0) + float(x3_rk[1,i]*(0.6666666667))
     
     file_name = outfile + '{}'.format(Nsite)
-    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%.3f', '%.10f'], delimiter='      ', header='Time   Surface Coverage')
+    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%e', '%e'], delimiter='      ', header='Time   Surface Coverage')
     return "rk4_file generated"
     
 def Nsite4():
@@ -113,7 +113,7 @@ def Nsite4():
         surf_cov[i] = float(x4_rk[0,i]*0) + float(x4_rk[1,i]*(0.5)) + float(x4_rk[2,i])
         
     file_name = outfile + '{}'.format(Nsite)
-    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%.3f', '%.10f'], delimiter='      ', header='Time   Surface Coverage')
+    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%e', '%e'], delimiter='      ', header='Time   Surface Coverage')
     return "rk4_file generated"
     
 def Nsite5():
@@ -147,7 +147,7 @@ def Nsite5():
         surf_cov[i] = float(x5_rk[0,i]*0) + float(x5_rk[1,i]*(0.4)) + float(x5_rk[2,i]*(0.4)) + float(x5_rk[3,i]*(0.8))
         
     file_name = outfile + '{}'.format(Nsite)
-    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%.3f', '%.10f'], delimiter='      ', header='Time   Surface Coverage')
+    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%e', '%e'], delimiter='      ', header='Time   Surface Coverage')
     return "rk4_file generated"
     
 def Nsite6():
@@ -185,7 +185,7 @@ def Nsite6():
         surf_cov[i] = float(x6_rk[0,i]*0) + float(x6_rk[1,i]*(0.33333333333)) + float(x6_rk[2,i]*(0.3333333333333)) + float(x6_rk[3,i]*(0.66666666667)) + float(x6_rk[4,i]*(0.66666666667)) + float(x6_rk[5,i])
         
     file_name = outfile + '{}'.format(Nsite)
-    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%.3f', '%.10f'], delimiter='      ', header='Time   Surface Coverage')
+    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%e', '%e'], delimiter='      ', header='Time   Surface Coverage')
     return "rk4_file generated"
     
 def Nsite7():
@@ -231,7 +231,7 @@ def Nsite7():
         surf_cov[i] = float(x7_rk[0,i]*0) + float(x7_rk[1,i]*(0.285714285714)) + float(x7_rk[2,i]*(0.285714285714)) + float(x7_rk[3,i]*(0.285714285714)) + float(x7_rk[4,i]*(0.571428571429)) + float(x7_rk[5,i]*(0.571428571429)) + float(x7_rk[6,i]*(0.571428571429)) + float(x7_rk[7,i]*(0.571428571429)) + float(x7_rk[8,i]*(0.571428571429)) + float(x7_rk[9,i]*(0.857142857143))
         
     file_name = outfile + '{}'.format(Nsite)
-    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%.3f', '%.10f'], delimiter='      ', header='Time   Surface Coverage')
+    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%e', '%e'], delimiter='      ', header='Time   Surface Coverage')
     return "rk4_file generated"
     
 def Nsite8():
@@ -279,7 +279,7 @@ def Nsite8():
         surf_cov[i] = float(x8_rk[0,i]*0) + float(x8_rk[1,i]*0.25) + float(x8_rk[2,i]*0.25) + float(x8_rk[3,i]*0.5) + float(x8_rk[4,i]*0.5) + float(x8_rk[5,i]*0.5) + float(x8_rk[6,i]*0.5) + float(x8_rk[7,i]*0.5) + float(x8_rk[8,i]*0.75) + float(x8_rk[9,i]*0.75) + float(x8_rk[10,i])
         
     file_name = outfile + '{}'.format(Nsite)
-    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%.3f', '%.10f'], delimiter='      ', header='Time   Surface Coverage')
+    np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%e', '%e'], delimiter='      ', header='Time   Surface Coverage')
     return "rk4_file generated"
     
 switcher = {

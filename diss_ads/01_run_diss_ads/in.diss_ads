@@ -43,4 +43,4 @@ variable ts loop ${tpts}
 label ts_loop
     run ${Trun} post no
 next ts
-jump 01_run_diss_ads/in.diss_ads ts_loop
+jump in.diss_ads ts_loop

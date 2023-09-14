@@ -57,6 +57,3 @@ data_file.close()
 
 # Generating Output file using t_data, vac_data, x_data
 np.savetxt(outfile, np.transpose([t_data, vac_data, x_data]), fmt='%.1f', delimiter='      ', header='Time    Vacant    Occupied')
-
-
-    

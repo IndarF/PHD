@@ -1,25 +1,36 @@
 #!/bin/bash
 
-# Usage: ./run_multiple Nsite tpts dt ra rd Nstrip Nsim
+# Usage: ./run_multiple.sh Nsite tpts dt ra rd Nstrip Nsim
+
 #   Nsite: # of sites per lattice strip
 #    tpts: Total time points for simulation
 #      dt: Time interval inbetween each time point
-#      ra: Rate of Adsorption
-#      rd: Rate of Desorption
-#  Nstrip: # of lattice strips 
-#    Nsim: # of simulations per strip size
+#      ra: Rate of adsorption (
+#      rd: Rate of desorption
+#  Nstrip: # of lattice strips
+#    Nsim: # of simulations
+
+Nsite=10
+tpts=3000
+dt=0.1
+Nstrip=100
+Nsim=10
+
+# rates are halfed to account for double counting in simulation
+# for example, if ra=1 for the reaction, then ra should be 0.5 for the simulation
+ra=0.5
+rd=25
+
+
 spkexe=./spk_nonmui
-spkscr=01_run_diss_ads/in.diss_ads
-tpts=$2
-dt=$3
-start=1
-end=$7
-xhi=$6
-yhi=$1
-ra=$( bc <<<"scale=2; $4 / 2" )    # bc used so code can contain the calculation as a float value
-rd=$( bc <<<"scale=2; $5 / 2" )    # rates are halfed to account for double counting in simulation
-                                   # To change # of digits after decimal, change scale value (ex. scale=2 will give you 2 digits after decimal)  
-# spparks executable
+logdir=../log$Nsite
+resdir=../res$Nsite
+
+spkscr=in.diss_ads
+sitefilescr=create_site_file.py
+datagenscr=datagen.py
+
+# check spparks executable
 if [ ! -f $spkexe ]
 then
   echo "ERROR: spparks executable $exec1 not found"
@@ -28,16 +39,33 @@ then
   exit
 fi
 
-# Generate Directories for data
-mkdir res$yhi  log$yhi
+# check logdir and resdir
+if [ -d $logdir ]
+then
+  echo "ERROR: $logdir already exists"
+  exit
+fi
+if [ -d $resdir ]
+then
+  echo "ERROR: $resdir already exists"
+  exit
+fi
+
+# create logdir and resdir
+mkdir $logdir $resdir 
 
 # generate sites data file "data.strips"
-python 01_run_diss_ads/create_site_file.py $xhi $yhi
+python $sitefilescr $Nstrip $Nsite
 
 # execute spparks then extracts data into res files
-for ((i = $start ; i <= $end ; i++)); do
-  mpirun -np 1 $spkexe -in $spkscr -log log.spparks$i -var seed $i -var xhi $xhi -var yhi $yhi -var tpts $tpts -var dt $dt -var ra $ra -var rd $rd
-  mv log.spparks$i log$yhi
-  python 01_run_diss_ads/datagen.py $tpts $dt log$yhi/log.spparks$i res$yhi/res$i  
+for ((i = 1 ; i <= $Nsim ; i++)); do
+  echo ** SPPARKS run $i
+  mpirun -np 1 $spkexe -in $spkscr -log log.spparks$i -screen none \
+    -var seed $i -var xhi $Nstrip -var yhi $Nsite -var tpts $tpts -var dt $dt -var ra $ra -var rd $rd
+  mv log.spparks$i $logdir 
+  python $datagenscr $tpts $dt $logdir/log.spparks$i $resdir/res$i  
 done
-echo "** spparks run completed"
+
+# keep some files for records
+cp $spkscr $logdir
+mv data.strips $logdir

@@ -15,7 +15,7 @@ To run this example:
    --> ./run_plot.sh
    
 This project contains the following files:
-    README.md            This file
+    readme               This file
     run_multiple.sh      Shell Script for running Simulations
     in.diss_ads          SPPARKS input script
     create_site_file.py  Creates sites data file "data.strips"
@@ -26,4 +26,3 @@ This project contains the following files:
     run_plot.sh          Shell Script for plotting data
     plot.py              Plots simulation and rk4 approximation data
     clean.sh             Deletes all data and outcome files
-
