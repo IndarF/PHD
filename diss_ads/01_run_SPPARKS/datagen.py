@@ -1,6 +1,4 @@
-import matplotlib
 import numpy as np
-from matplotlib import pyplot as plt
 import sys
 import re
 
@@ -13,19 +11,20 @@ tpts = int(sys.argv[1]) + 1                    # Adding 1 to tpts to account for
 dt = float(sys.argv[2])
 infile = sys.argv[3]
 outfile = sys.argv[4]
+
 end = tpts*dt
 switch1 = 0
 switch2 = 0
 count = 0
 
-# Reading Input Data File
+# Read input data file
 data_file = open(infile)
 lines = data_file.readlines()
 
-# Initializing time step, [X] & [0] arrays using time and delta variables     
+# Initialize time step, [X] & [0] arrays using time and delta variables     
 x_data = np.zeros(tpts)                        
 vac_data = np.zeros(tpts)
-t_data = np.arange(0,end, dt)
+t_data = dt*np.arange(tpts)
 
 for line in lines:                                  
     if line.find('Loop time of ') != -1:
@@ -53,7 +52,8 @@ for line in lines:
             switch2 = 1
     if line.find('      Time    Naccept') != -1:      # Once I read the line before the data is listed, I turn switch 1 on.
         switch1 = 1   
+
 data_file.close()
 
-# Generating Output file using t_data, vac_data, x_data
-np.savetxt(outfile, np.transpose([t_data, vac_data, x_data]), fmt='%.1f', delimiter='      ', header='Time    Vacant    Occupied')
+# Generate output file using t_data, vac_data, x_data
+np.savetxt(outfile, np.transpose([t_data, vac_data, x_data]), fmt='%g', delimiter='\t', header='Time Vacant Occupied')

@@ -1,12 +1,10 @@
 #!/bin/bash
 
-# Usage: ./run_multiple.sh Nsite tpts dt ra rd Nstrip Nsim
+# Usage: ./run_multiple.sh
 
 #   Nsite: # of sites per lattice strip
 #    tpts: Total time points for simulation
 #      dt: Time interval inbetween each time point
-#      ra: Rate of adsorption (
-#      rd: Rate of desorption
 #  Nstrip: # of lattice strips
 #    Nsim: # of simulations
 
@@ -16,11 +14,12 @@ dt=0.1
 Nstrip=100
 Nsim=10
 
+# ra2: Rate of adsorption / 2
+# rd2: Rate of desorption / 2
 # rates are halfed to account for double counting in simulation
-# for example, if ra=1 for the reaction, then ra should be 0.5 for the simulation
-ra=0.5
-rd=25
-
+# for example, if ra=1, then ra2 should be provided in SPPARKS
+ra2=0.5
+rd2=25
 
 spkexe=./spk_nonmui
 logdir=../log$Nsite
@@ -45,6 +44,7 @@ then
   echo "ERROR: $logdir already exists"
   exit
 fi
+
 if [ -d $resdir ]
 then
   echo "ERROR: $resdir already exists"
@@ -58,10 +58,11 @@ mkdir $logdir $resdir
 python $sitefilescr $Nstrip $Nsite
 
 # execute spparks then extracts data into res files
-for ((i = 1 ; i <= $Nsim ; i++)); do
-  echo ** SPPARKS run $i
+for ((i = 1 ; i <= $Nsim ; i++))
+do
+  echo "** SPPARKS run $i"
   mpirun -np 1 $spkexe -in $spkscr -log log.spparks$i -screen none \
-    -var seed $i -var xhi $Nstrip -var yhi $Nsite -var tpts $tpts -var dt $dt -var ra $ra -var rd $rd
+    -var seed $i -var xhi $Nstrip -var yhi $Nsite -var tpts $tpts -var dt $dt -var ra2 $ra2 -var rd2 $rd2
   mv log.spparks$i $logdir 
   python $datagenscr $tpts $dt $logdir/log.spparks$i $resdir/res$i  
 done

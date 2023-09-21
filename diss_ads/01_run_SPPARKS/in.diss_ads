@@ -26,17 +26,17 @@ set     i1 value 1
 set		i2 value 0
 
 # disassociative adsorption
-event       2 siteA siteA vac vac ${ra} spec1 spec1
+event       2 siteA siteA vac vac ${ra2} spec1 spec1
 # associative desorption
-event       2 siteA siteA spec1 spec1 ${rd} vac vac
+event       2 siteA siteA spec1 spec1 ${rd2} vac vac
 
 # diffusion
-#event       2 siteA siteA spec1 vac 1.0 vac spec1
+#event       2 siteA siteA spec1 vac ${rdiff} vac spec1
 
 variable    Trun equal ${dt}
 variable    Tstat equal ${dt}
 
-stats           ${Tstat}
+stats       ${Tstat}
 diag_style 	surfchemtest stats yes list vac spec1
 
 variable ts loop ${tpts}
