@@ -3,15 +3,20 @@ copy the executable "spk_nonmui" to '01_run_diss_ads':
 --> cp ~/GIT/FHDeX/exec/compressible_stag_mui/SPPARKS_MUI/spk_nonmui 01_run_diss_ads
 
 
-** 01_run_SPPARKS: run multiple simulations on SPPARKS and parse log files 
+** 01_run_SPPARKS: run multiple simulations on SPPARKS 
 --> ./run_multiple.sh
 
     run_multiple.sh      Shell script for running multiple simulations
     in.diss_ads          SPPARKS input script
     create_site_file.py  Creates sites data file "data.strips"
-    datagen.py           Creates data file from SPPARKS log files 
+    
+** 02_parse_data: parse log files
+--> ./run_parse.sh
+    
+    run_parse.sh         Shell Script for parsing log files
+    datagen.py           Parses data in log files and outputs res files 
 
-** 02_comp_stat_rk4: compute statistics of simulation results and compute theoretical results using RK4 approximation
+** 03_comp_stat_rk4: compute statistics of simulation results and compute theoretical results using RK4 approximation
 --> ./run_comp.sh
 
     run_comp.sh          Shell Script for generating mean simulation and rk4 data

@@ -5,12 +5,12 @@ if len(sys.argv)!=5:
     print("Usage: python %s Nsite Nstrip Nsim stat_file" % sys.argv[0])
     sys.exit()
 
-Nsite = int(sys.argv[1])        # number of reactive sites in a strip
-Nstrip = int(sys.argv[2])       # number of Strips in simulation
-Nsim = int(sys.argv[3])         # number of simulations
-outfile = sys.argv[4]           # output file name
+Nsite = int(sys.argv[1])        # Number of reactive sites in a strip
+Nstrip = int(sys.argv[2])       # Number of Strips in simulation
+Nsim = int(sys.argv[3])         # Number of simulations
+outfile = sys.argv[4]           # Output file name
 
-# read the first data file to figure out the size
+# Read the first data file to figure out the size
 
 [tt,xx] = np.loadtxt('../res{}/res1'.format(Nsite),unpack=True,usecols = (0,2))
 
@@ -31,5 +31,6 @@ stderr = np.divide(stdev, Nsim)
 
 
 outfile = outfile + '{}'.format(Nsite)
-np.savetxt(outfile, np.transpose([tt, mean, stderr]), fmt=['%e', '%e', '%e'], delimiter='      ', header='Time   Mean    Standard Error')     
+np.savetxt(outfile, np.transpose([tt, mean, stderr]), fmt=['%g', '%g', '%g'], delimiter='\t', header='Time   Mean    Standard Error')     
 
+print("Stat file generated")

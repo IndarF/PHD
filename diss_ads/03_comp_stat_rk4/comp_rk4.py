@@ -1,9 +1,5 @@
-import matplotlib
 import numpy as np
-from matplotlib import pyplot as plt
-from matplotlib import colors as mcolors
 import sys
-import re
 
 if len(sys.argv)!=7:
   print("Usage: python %s tpts dt Nsite ra rd rk4_file" % sys.argv[0])
@@ -18,10 +14,6 @@ ra = float(sys.argv[4])
 rd = float(sys.argv[5])
 outfile = sys.argv[6]
 delta = 0.005                # delta is for rk4 approximation
-
-if Nsite < 2 or Nsite > 8:
-    print("Error: comp_rk4 only supports lattice sizes 2-8 sites\nPlease input compatable lattice size")
-    sys.exit()
 
 # Set up CME and arrays using switch-case structure
 def Nsite2():
@@ -281,6 +273,9 @@ def Nsite8():
     file_name = outfile + '{}'.format(Nsite)
     np.savetxt(file_name, np.transpose([times, surf_cov]), fmt=['%e', '%e'], delimiter='      ', header='Time   Surface Coverage')
     return "rk4_file generated"
+
+def default():
+    return "Nsite is not in range of supported RK4 approximations"
     
 switcher = {
     2: Nsite2,
@@ -293,8 +288,8 @@ switcher = {
 }
 
 def switch(site):
-    return switcher.get(site)()
+    return switcher.get(site, default)()
 
+# Running code with Nsite value
 print(switch(Nsite))
-sys.exit()
 

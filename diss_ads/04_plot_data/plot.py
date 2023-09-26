@@ -17,10 +17,10 @@ time = float(tpts*dt)
 
 # Checking flag value for rk4 inclusion
 if flag==1:
-    stat_time = np.loadtxt('../stat_file{}'.format(Nsite), usecols = 0)
-    rk4_time = np.loadtxt('../rk4_file{}'.format(Nsite), usecols = 0)  
-    stat_data = np.loadtxt('../stat_file{}'.format(Nsite), usecols = 1)
-    rk4_data = np.loadtxt('../rk4_file{}'.format(Nsite), usecols = 1)  
+    stat_time = np.loadtxt('../res{}/stat_file{}'.format(Nsite, Nsite), usecols = 0)
+    rk4_time = np.loadtxt('../res{}/rk4_file{}'.format(Nsite, Nsite), usecols = 0)  
+    stat_data = np.loadtxt('../res{}/stat_file{}'.format(Nsite, Nsite), usecols = 1)
+    rk4_data = np.loadtxt('../res{}/rk4_file{}'.format(Nsite, Nsite), usecols = 1)  
     plt.figure(1)
     plt.plot(stat_time, stat_data, color="blue", label='N={}'.format(Nsite), alpha = 0.25)
     plt.plot(rk4_time, rk4_data, 'k-', label='RK4')
@@ -29,10 +29,10 @@ if flag==1:
     plt.ylabel('Coverage')
     plt.legend(loc='upper right', ncol=2)
     plt.title('Surface Coverage for Dissociative Adsorption')
-    plt.savefig("../scrk4.png")
+    plt.savefig("../plots/scrk4.png")
 else:
-    stat_time = np.loadtxt('../stat_file{}'.format(Nsite), usecols = 0) 
-    stat_data = np.loadtxt('../stat_file{}'.format(Nsite), usecols = 1)
+    stat_time = np.loadtxt('../res{}/stat_file{}'.format(Nsite, Nsite), usecols = 0)
+    stat_data = np.loadtxt('../res{}/stat_file{}'.format(Nsite, Nsite), usecols = 1)
     plt.figure(1)
     plt.plot(stat_time, stat_data, color="blue", label='N={}'.format(Nsite), alpha = 0.25)
     plt.axis([-5, time, 0, stat_data[tpts]+0.1 ])
@@ -40,13 +40,6 @@ else:
     plt.ylabel('Coverage')
     plt.legend(loc='upper right', ncol=2)
     plt.title('Surface Coverage for Dissociative Adsorption')
-    plt.savefig("../scrk4.png")
+    plt.savefig("../plots/scrk4.png")
 
-
-
-
-
-
-
-
-
+print("Plot generated")

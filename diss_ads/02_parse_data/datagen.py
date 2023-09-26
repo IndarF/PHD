@@ -41,7 +41,7 @@ for line in lines:
             vac_data[count] = int(temp1[-2])       
             x_data[count] = int(temp1[-1])    
             count = count+1       
-    if switch1 == 1:                                 # if the count (# of data lines read) is 0, then I read the first line of data. 
+    if switch1 == 1:                                 # If the count (# of data lines read) is 0, then I read the first line of data. 
         if count == 0:                               # Then switch 2 is turned on
             temp1 = line.split()           
             vac_data[count] = int(temp1[-2])          

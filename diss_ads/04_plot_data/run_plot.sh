@@ -7,27 +7,23 @@
 #      dt: Time interval inbetween each time point
 #    flag: 0 if Nsite is outside range [2,8], 1 if within 
 
-Nsite=10
+Nsite=5
 tpts=3000
 dt=0.1
-flag=0
+flag=1
 
 plotscr=plot.py
-statfile=../stat_file$Nsite
-rk4file=../rk4_file$Nsite
+statfile=../res$Nsite/stat_file$Nsite
+plotdir=../plots
 
-# Check if data files exist
+# Check if Stat file exist
 if [ ! -f $statfile ]
 then
   echo "ERROR: statfile doesn't exist"
 fi
 
-if [ ! -f $rk4file ]
-then
-  echo "rk4file doesn't exist, running plot without rk4file"
-  python $plotscr $tpts $dt $Nsite $flag
-  exit
-fi
+# Make directory for plots
+mkdir $plotdir
 
 # Run plot.py
-python $plotscr $tpts $dt $Nsite $flag
+python $plotscr $tpts $dt $Nsite $flag    # Script uses flag to determine whether to include rk4 approximation in plot or not
