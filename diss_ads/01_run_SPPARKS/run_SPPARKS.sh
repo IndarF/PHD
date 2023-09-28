@@ -59,9 +59,8 @@ do
     do
         logfile=$logdir/log${seed}.spparks
         echo "running $spkexe with seed = $seed"
-        mpirun -np 1 $spkexe -in $spkscr -log log.spparks$seed -screen none \
+        mpirun -np 1 $spkexe -in $spkscr -log $logdir/log.spparks$seed -screen none \
           -var seed $seed -var xhi $Nstrip -var yhi $Nsite -var tpts $tpts -var dt $dt -var ra2 $ra2 -var rd2 $rd2 &
-        mv $logfile $logdir
     done
     wait
 done
